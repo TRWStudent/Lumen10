@@ -222,7 +222,6 @@
       color: var(--white);
       position: relative;
       overflow: hidden;
-      background-color: var(--charcoal);
     }
 
     .hero-video {
@@ -232,14 +231,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: 1;
+      z-index: -1;
     }
 
     .hero-content {
       max-width: 800px;
       animation: fadeIn 0.6s ease;
-      position: relative;
-      z-index: 2;
     }
 
     .hero-title {
@@ -312,7 +309,6 @@
       left: 50%;
       transform: translateX(-50%);
       animation: bounce 2s infinite;
-      z-index: 2;
     }
 
     .scroll-arrow {
@@ -675,9 +671,8 @@
   <main>
 
     <section id="hero" class="hero-section">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="https://github-production-user-asset-6210df.s3.amazonaws.com/255880780/537637065-ba40eb5c-39ac-4816-b867-752da0f5c28e.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260119%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260119T151535Z&X-Amz-Expires=300&X-Amz-Signature=6d330b6c03850e9b644fdc81bb9f913cd13a650285da54cbcdfd2b3370051db4&X-Amz-SignedHeaders=host" type="video/mp4">
-        Your browser does not support the video tag.
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="/Lumenvideo.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
         <h1 class="hero-title">Wealth Preserved. Legacies Protected.</h1>
@@ -882,22 +877,6 @@
       dropdownMenu.addEventListener('click', function() {
         dropdownMenu.classList.remove('active');
       });
-
-      // Video handling
-      const video = document.querySelector('.hero-video');
-      if (video) {
-        video.addEventListener('loadeddata', function() {
-          console.log('Video loaded successfully');
-          video.play().catch(function(error) {
-            console.error('Video play failed:', error);
-          });
-        });
-
-        video.addEventListener('error', function(e) {
-          console.error('Video error:', e);
-          console.error('Video error details:', video.error);
-        });
-      }
     });
   </script>
 
