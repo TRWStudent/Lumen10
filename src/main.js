@@ -1,6 +1,6 @@
 import { supabase } from './supabase.js';
 
-const VIDEO_FILE_NAME = 'Lumenvideo.mp4';
+const VIDEO_FILE_NAME = '20260120_0854_New Video_simple_compose_01kfd6c0sae63twhfx4fef2qe2.mp4';
 
 async function loadVideoFromSupabase() {
   try {
