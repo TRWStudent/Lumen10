@@ -425,6 +425,14 @@
       gap: var(--spacing-s);
     }
 
+    .practice-area-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-s);
+    }
+
     .practice-area-item {
       aspect-ratio: 1;
       background-color: var(--cream);
@@ -432,9 +440,10 @@
       border: 1px solid var(--light-grey);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       overflow: hidden;
+      cursor: pointer;
     }
 
-    .practice-area-item:hover {
+    .practice-area-link:hover .practice-area-item {
       transform: translateY(-4px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       border: 2px solid var(--orange);
@@ -458,6 +467,17 @@
       text-align: center;
     }
 
+    .partner-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .partner-link:hover {
+      transform: scale(1.02);
+    }
+
     .partner-image {
       width: 100%;
       height: 600px;
@@ -467,6 +487,12 @@
       justify-content: center;
       margin-bottom: var(--spacing-m);
       overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .partner-link:hover .partner-image {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
 
     .partner-image img {
@@ -697,6 +723,7 @@
               <li><a href="#practice-areas">Practice Areas</a></li>
               <li><a href="#partners">Partners</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li><a href="page2.html">Page 2</a></li>
             </ul>
           </li>
         </ul>
@@ -745,40 +772,52 @@
         <h2>Practice Areas</h2>
         <div class="practice-areas-grid">
           <div class="practice-area-container">
-            <div class="practice-area-item">
-              <img src="/family_office.jpg" alt="Family Office" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <h3 class="practice-area-title">Family Office</h3>
+            <a href="page2.html" class="practice-area-link">
+              <div class="practice-area-item">
+                <img src="/family_office.jpg" alt="Family Office" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 class="practice-area-title">Family Office</h3>
+            </a>
           </div>
           <div class="practice-area-container">
-            <div class="practice-area-item">
-              <img src="/succession_planning.png" alt="Succession Planning" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <h3 class="practice-area-title">Succession Planning</h3>
+            <a href="page2.html" class="practice-area-link">
+              <div class="practice-area-item">
+                <img src="/succession_planning.png" alt="Succession Planning" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 class="practice-area-title">Succession Planning</h3>
+            </a>
           </div>
           <div class="practice-area-container">
-            <div class="practice-area-item">
-              <img src="/relocation_services.jpg" alt="Relocation Services" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <h3 class="practice-area-title">Relocation Services</h3>
+            <a href="page2.html" class="practice-area-link">
+              <div class="practice-area-item">
+                <img src="/relocation_services.jpg" alt="Relocation Services" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 class="practice-area-title">Relocation Services</h3>
+            </a>
           </div>
           <div class="practice-area-container">
-            <div class="practice-area-item">
-              <img src="/philantropy.jpg" alt="Philanthropy" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <h3 class="practice-area-title">Philanthropy</h3>
+            <a href="page2.html" class="practice-area-link">
+              <div class="practice-area-item">
+                <img src="/philantropy.jpg" alt="Philanthropy" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 class="practice-area-title">Philanthropy</h3>
+            </a>
           </div>
           <div class="practice-area-container">
-            <div class="practice-area-item">
-              <img src="/accounting_(2).jpg" alt="Accounting" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <h3 class="practice-area-title">Accounting</h3>
+            <a href="page2.html" class="practice-area-link">
+              <div class="practice-area-item">
+                <img src="/accounting_(2).jpg" alt="Accounting" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 class="practice-area-title">Accounting</h3>
+            </a>
           </div>
           <div class="practice-area-container">
-            <div class="practice-area-item">
-              <img src="/legal_advice copy.jpg" alt="Legal Advice" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <h3 class="practice-area-title">Legal Advice and Notarial Services</h3>
+            <a href="page2.html" class="practice-area-link">
+              <div class="practice-area-item">
+                <img src="/legal_advice copy.jpg" alt="Legal Advice" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 class="practice-area-title">Legal Advice and Notarial Services</h3>
+            </a>
           </div>
         </div>
       </div>
@@ -789,17 +828,21 @@
         <h2>Our Partners</h2>
         <div class="partners-grid">
           <div class="partner-profile">
-            <div class="partner-image">
-              <img src="/lumen-remo.jpg" alt="Partner 1">
-            </div>
+            <a href="page2.html" class="partner-link">
+              <div class="partner-image">
+                <img src="/lumen-remo.jpg" alt="Partner 1">
+              </div>
+            </a>
             <h3>Remo Mairhofer</h3>
             <p class="partner-title">Attorney at Law (FL) | Substitute Notary</p>
             <p class="partner-bio">M.A. HSG (Law), M.A. HSG (Banking and Finance)<br>LL.M., CII (Award)</p>
           </div>
           <div class="partner-profile">
-            <div class="partner-image">
-              <img src="/lumen-tomasz.jpg" alt="Partner 2">
-            </div>
+            <a href="page2.html" class="partner-link">
+              <div class="partner-image">
+                <img src="/lumen-tomasz.jpg" alt="Partner 2">
+              </div>
+            </a>
             <h3>Dr. iur. Tomasz Klimek</h3>
             <p class="partner-title">Attorney at Law (FL, A and PL) | Notary Public</p>
             <p class="partner-bio">LL.M.</p>
