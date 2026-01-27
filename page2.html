@@ -279,6 +279,42 @@
       margin: 0 auto;
     }
 
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-l);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background-color: white;
+      padding: var(--spacing-m);
+      border-radius: 8px;
+      border: 1px solid var(--light-grey);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-color: var(--orange);
+    }
+
+    .service-card h3 {
+      color: var(--charcoal);
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-m);
+    }
+
+    .service-card p {
+      text-align: center;
+      color: var(--grey);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
     .partner-card {
       text-align: center;
     }
@@ -348,6 +384,10 @@
         grid-template-columns: 1fr;
         gap: var(--spacing-l);
       }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -404,8 +444,33 @@
 
     <section id="section-2" class="page-section">
       <div class="section-container">
-        <h2>Section Two</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <h2>Our Services</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Trust Management</h3>
+            <p>Expert establishment, governance, and supervision of trust structures for cross-border wealth management and asset protection.</p>
+          </div>
+          <div class="service-card">
+            <h3>Foundation Services</h3>
+            <p>Comprehensive foundation setup and administration, including compliance, governance, and strategic planning for long-term objectives.</p>
+          </div>
+          <div class="service-card">
+            <h3>Legal Counsel</h3>
+            <p>Specialized legal advice on complex fiduciary arrangements, corporate structures, and cross-border transactions.</p>
+          </div>
+          <div class="service-card">
+            <h3>Family Office Support</h3>
+            <p>Tailored advisory services for family offices managing multi-generational wealth with discretion and expertise.</p>
+          </div>
+          <div class="service-card">
+            <h3>Succession Planning</h3>
+            <p>Strategic guidance on wealth transfer, succession structures, and preservation of family legacy across generations.</p>
+          </div>
+          <div class="service-card">
+            <h3>Notarial Services</h3>
+            <p>Professional notarial support for international transactions, certifications, and documentation with multilingual expertise.</p>
+          </div>
+        </div>
       </div>
     </section>
 
