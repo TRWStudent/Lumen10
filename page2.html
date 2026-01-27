@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumenadvisory - Page 2</title>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --charcoal: #1A1A1A;
+      --white: #FFFFFF;
+      --orange: #E67E22;
+      --cream: #F8F6F0;
+      --grey: #8E8E93;
+      --light-grey: #E5E5EA;
+      --overlay-dark: rgba(26, 26, 26, 0.7);
+      --overlay-light: rgba(255, 255, 255, 0.9);
+
+      --spacing-xs: 8px;
+      --spacing-s: 16px;
+      --spacing-m: 32px;
+      --spacing-l: 64px;
+      --spacing-xl: 96px;
+      --spacing-xxl: 128px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--charcoal);
+      background-color: var(--white);
+    }
+
+    h1 {
+      font-size: 56px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 40px;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 32px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--light-grey);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-s) var(--spacing-l);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .main-navigation ul {
+      display: flex;
+      gap: var(--spacing-l);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-navigation a {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .main-navigation a:hover {
+      color: var(--orange);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      background: none;
+      border: none;
+      color: var(--charcoal);
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.3s ease;
+    }
+
+    .dropdown-toggle:hover {
+      color: var(--orange);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border: 1px solid var(--light-grey);
+      border-radius: 8px;
+      padding: var(--spacing-s);
+      list-style: none;
+      margin-top: var(--spacing-xs);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-menu.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+      margin: 0;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: var(--spacing-xs) var(--spacing-s);
+      color: var(--charcoal);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: var(--cream);
+      color: var(--orange);
+    }
+
+    .header-cta {
+      display: flex;
+      gap: var(--spacing-s);
+    }
+
+    .client-login-btn {
+      padding: 12px 24px;
+      background-color: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+    }
+
+    .client-login-btn:hover {
+      background-color: #d35400;
+      transform: translateY(-2px);
+    }
+
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-section {
+      padding: 80px var(--spacing-l);
+      min-height: 400px;
+    }
+
+    .page-section:nth-child(odd) {
+      background-color: var(--cream);
+    }
+
+    .page-section:nth-child(even) {
+      background-color: white;
+    }
+
+    .page-section h2 {
+      color: var(--orange);
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: var(--spacing-m);
+    }
+
+    .page-section p {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      color: var(--grey);
+      line-height: 1.8;
+    }
+
+    .site-footer {
+      background-color: var(--charcoal);
+      color: var(--white);
+      padding: var(--spacing-l);
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--spacing-l);
+      align-items: center;
+    }
+
+    .footer-logo img {
+      height: 40px;
+    }
+
+    .footer-navigation ul {
+      display: flex;
+      gap: var(--spacing-l);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .footer-navigation a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-navigation a:hover {
+      color: var(--orange);
+    }
+
+    .footer-copyright {
+      text-align: right;
+      color: var(--grey);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      h2 {
+        font-size: 32px;
+      }
+
+      h3 {
+        font-size: 24px;
+      }
+
+      .header-container {
+        flex-wrap: wrap;
+        gap: var(--spacing-s);
+      }
+
+      .main-navigation ul {
+        gap: var(--spacing-m);
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--spacing-m);
+      }
+
+      .footer-navigation ul {
+        flex-direction: column;
+        gap: var(--spacing-s);
+      }
+
+      .footer-copyright {
+        text-align: center;
+      }
+
+      .page-section {
+        padding: 60px var(--spacing-m);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="/lumen_logo.png" alt="Lumenadvisory" style="height: 40px;">
+        </a>
+      </div>
+      <nav class="main-navigation">
+        <ul>
+          <li class="dropdown">
+            <button class="dropdown-toggle">More ▾</button>
+            <ul class="dropdown-menu">
+              <li><a href="index.html#practice-areas">Practice Areas</a></li>
+              <li><a href="index.html#partners">Partners</a></li>
+              <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <button class="client-login-btn">Client Login</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="section-1" class="page-section">
+      <div class="section-container">
+        <h2>Section One</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </section>
+
+    <section id="section-2" class="page-section">
+      <div class="section-container">
+        <h2>Section Two</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </section>
+
+    <section id="section-3" class="page-section">
+      <div class="section-container">
+        <h2>Section Three</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </section>
+
+    <section id="section-4" class="page-section">
+      <div class="section-container">
+        <h2>Section Four</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="index.html">
+          <img src="/lumen_logo.png" alt="Lumenadvisory" style="height: 40px;">
+        </a>
+      </div>
+      <nav class="footer-navigation">
+        <ul>
+          <li><a href="index.html#practice-areas">Practice Areas</a></li>
+          <li><a href="index.html#partners">Partners</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-copyright">
+        <p>&copy; 2026 Lumenadvisory. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      const dropdownMenu = document.querySelector('.dropdown-menu');
+      const dropdown = document.querySelector('.dropdown');
+
+      dropdownToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('active');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+          dropdownMenu.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
