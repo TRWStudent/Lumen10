@@ -348,6 +348,59 @@
       margin-bottom: 0;
     }
 
+    .newsletter-container {
+      max-width: 600px;
+      margin: var(--spacing-l) auto 0;
+      text-align: center;
+    }
+
+    .newsletter-tagline {
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: var(--spacing-m);
+      line-height: 1.6;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: var(--spacing-s);
+      align-items: stretch;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 2px solid var(--light-grey);
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+
+    .newsletter-button {
+      padding: 14px 32px;
+      background-color: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .newsletter-button:hover {
+      background-color: #d35400;
+      transform: translateY(-2px);
+    }
+
     @media (max-width: 768px) {
       h1 {
         font-size: 40px;
@@ -396,6 +449,14 @@
 
       .services-grid {
         grid-template-columns: 1fr;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-button {
+        width: 100%;
       }
     }
   </style>
@@ -515,8 +576,21 @@
 
     <section id="section-4" class="page-section">
       <div class="section-container">
-        <h2>Blog </h2>
+        <h2>Blog</h2>
         <p>Our blog offers perspectives on wealth, legacy, and structure that matter today and shape tomorrow.</p>
+
+        <div class="newsletter-container">
+          <p class="newsletter-tagline">A monthly note on what quietly changes—and why it matters.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault();">
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Enter your email"
+              required
+            />
+            <button type="submit" class="newsletter-button">Newsletter</button>
+          </form>
+        </div>
       </div>
     </section>
 
