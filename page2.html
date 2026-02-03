@@ -176,6 +176,24 @@
       gap: var(--spacing-s);
     }
 
+    .lang-toggle-btn {
+      padding: 10px 16px;
+      background-color: transparent;
+      color: var(--charcoal);
+      border: 1px solid var(--light-grey);
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+
+    .lang-toggle-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
     .client-login-btn {
       padding: 12px 24px;
       background-color: var(--orange);
@@ -517,6 +535,7 @@
         </ul>
       </nav>
       <div class="header-cta">
+        <button id="lang-toggle-btn" class="lang-toggle-btn">Deutsch</button>
         <button class="client-login-btn">Client Login</button>
       </div>
     </div>
