@@ -186,6 +186,23 @@
       background-color: #D35400;
     }
 
+    .language-switcher {
+      padding: 8px 16px;
+      background-color: transparent;
+      color: var(--charcoal);
+      border: 1px solid var(--light-grey);
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .language-switcher:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
     main {
       width: 100%;
     }
@@ -728,7 +745,8 @@
           </li>
         </ul>
       </nav>
-      <div class="header-cta">
+      <div class="header-cta" style="display: flex; gap: 16px; align-items: center;">
+        <button class="language-switcher" id="languageSwitcher">Deutsch</button>
         <button class="client-login-btn">Client Login</button>
       </div>
     </div>
@@ -944,6 +962,25 @@
       dropdownMenu.addEventListener('click', function() {
         dropdownMenu.classList.remove('active');
       });
+
+      const languageSwitcher = document.getElementById('languageSwitcher');
+      let isEnglish = localStorage.getItem('language') !== 'de';
+
+      function updateLanguage() {
+        if (isEnglish) {
+          languageSwitcher.textContent = 'Deutsch';
+        } else {
+          languageSwitcher.textContent = 'English';
+        }
+        localStorage.setItem('language', isEnglish ? 'en' : 'de');
+      }
+
+      languageSwitcher.addEventListener('click', function() {
+        isEnglish = !isEnglish;
+        updateLanguage();
+      });
+
+      updateLanguage();
     });
   </script>
 
