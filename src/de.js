@@ -100,7 +100,7 @@ export const de = {
     legalAdvicePara2: 'Dies umfasst oft die notarielle Gründung von Stiftungen oder Gesellschaften, laufende rechtliche Betreuung und grenzüberschreitende Koordination – beispielsweise wenn eine liechtensteinische Stiftung internationale Immobilien und Beteiligungen hält und rechtlich sichere Resolutionen, Transaktionen und Governance-Entscheidungen über mehrere Gerichtsbarkeiten hinweg erfordert.',
     whitepaperTitle: 'Whitepaper',
     whitepaperDesc: 'Sanktionen Russland - Ein umfassender Überblick über die aktuellen rechtlichen Rahmenbedingungen und praktischen Implikationen.',
-    whitepaperPlaceholder: 'PDF wird nach dem Upload hier eingebettet',
+    downloadButton: 'Whitepaper herunterladen (PDF)',
     blogTitle: 'Blog',
     blogDesc: 'Unser Blog bietet Perspektiven zu Vermögen, Vermächtnis und Struktur, die heute wichtig sind und morgen Form geben.',
     newsletterTagline: 'Eine monatliche Notiz darüber, was sich leise ändert – und warum es wichtig ist.',

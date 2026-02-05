@@ -100,7 +100,7 @@ export const en = {
     legalAdvicePara2: 'This often includes the notarial establishment of foundations or companies, ongoing legal supervision, and cross-border coordination—such as when a Liechtenstein foundation holds international real estate and shareholdings and requires legally sound resolutions, transactions, and governance decisions across multiple jurisdictions.',
     whitepaperTitle: 'Whitepaper',
     whitepaperDesc: 'Sanktionen Russland - Ein umfassender Überblick über die aktuellen rechtlichen Rahmenbedingungen und praktischen Implikationen.',
-    whitepaperPlaceholder: 'PDF wird nach dem Upload hier eingebettet',
+    downloadButton: 'Download Whitepaper (PDF)',
     blogTitle: 'Blog',
     blogDesc: 'Our blog offers perspectives on wealth, legacy, and structure that matter today and shape tomorrow.',
     newsletterTagline: 'A monthly note on what quietly changes—and why it matters.',
