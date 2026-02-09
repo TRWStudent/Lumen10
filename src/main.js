@@ -75,6 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
       switchLanguage(newLanguage);
     });
   }
+
+  const clientLoginBtn = document.querySelector('.client-login-btn');
+  if (clientLoginBtn) {
+    clientLoginBtn.addEventListener('click', function() {
+      window.location.href = '/login.html';
+    });
+  }
 });
 
 loadVideoFromSupabase();
