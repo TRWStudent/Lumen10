@@ -82,3 +82,7 @@ CREATE POLICY "Admins can update all profiles"
   TO authenticated
   USING (is_admin())
   WITH CHECK (is_admin());
+-- 1. Check what policies exist now
+SELECT schemaname, tablename, policyname 
+FROM pg_policies 
+WHERE tablename = 'user_profiles';
