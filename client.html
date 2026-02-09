@@ -165,6 +165,88 @@
       color: #718096;
       font-size: 16px;
     }
+
+    .documents-section {
+      margin-top: 48px;
+    }
+
+    .documents-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .documents-table thead {
+      background: #f7fafc;
+    }
+
+    .documents-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d3748;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .documents-table td {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #4a5568;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .documents-table tbody tr:hover {
+      background: #f7fafc;
+    }
+
+    .documents-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .status-uploaded {
+      background: #bee3f8;
+      color: #2c5282;
+    }
+
+    .status-approved {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+
+    .status-rejected {
+      background: #fed7d7;
+      color: #742a2a;
+    }
+
+    .status-pending {
+      background: #feebc8;
+      color: #7c2d12;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: #718096;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
   </style>
 </head>
 <body>
@@ -206,6 +288,13 @@
 
         <button type="submit" class="upload-btn" id="upload-btn">Upload Document</button>
       </form>
+
+      <div class="documents-section">
+        <h2>Your Documents</h2>
+        <div id="documents-container">
+          <div class="loading">Loading documents...</div>
+        </div>
+      </div>
     </div>
   </div>
 

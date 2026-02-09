@@ -9,6 +9,7 @@ const uploadForm = document.getElementById('upload-form');
 const uploadBtn = document.getElementById('upload-btn');
 const documentTypeSelect = document.getElementById('document-type');
 const documentFileInput = document.getElementById('document-file');
+const documentsContainer = document.getElementById('documents-container');
 
 function showError(message) {
   errorMessageDiv.textContent = message;
@@ -29,6 +30,79 @@ function hideMessages() {
 
 function redirectToLogin() {
   window.location.href = '/login.html';
+}
+
+function formatDocumentType(type) {
+  return type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+function renderDocuments(documents) {
+  if (documents.length === 0) {
+    documentsContainer.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📄</div>
+        <p>No documents uploaded yet</p>
+      </div>
+    `;
+    return;
+  }
+
+  const tableHTML = `
+    <table class="documents-table">
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Status</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${documents.map(doc => `
+          <tr>
+            <td>${formatDocumentType(doc.document_type)}</td>
+            <td><span class="status-badge status-${doc.status}">${doc.status}</span></td>
+            <td>${doc.note || '-'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  documentsContainer.innerHTML = tableHTML;
+}
+
+async function loadDocuments() {
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      return;
+    }
+
+    const { data: documents, error } = await supabase
+      .from('documents')
+      .select('id, document_type, status, note, created_at')
+      .eq('user_id', session.user.id)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error loading documents:', error);
+      documentsContainer.innerHTML = `
+        <div class="empty-state">
+          <p>Failed to load documents</p>
+        </div>
+      `;
+      return;
+    }
+
+    renderDocuments(documents);
+  } catch (error) {
+    console.error('Error loading documents:', error);
+    documentsContainer.innerHTML = `
+      <div class="empty-state">
+        <p>Failed to load documents</p>
+      </div>
+    `;
+  }
 }
 
 async function checkAccess() {
@@ -61,6 +135,7 @@ async function checkAccess() {
 
     contentDiv.style.display = 'none';
     dashboardDiv.style.display = 'block';
+    loadDocuments();
   } catch (error) {
     console.error('Access check error:', error);
     showError('An error occurred. Redirecting to login...');
@@ -127,6 +202,7 @@ async function handleUpload(event) {
 
     showSuccess('Document uploaded successfully!');
     uploadForm.reset();
+    loadDocuments();
   } catch (error) {
     console.error('Upload error:', error);
     showError('An unexpected error occurred during upload');
