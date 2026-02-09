@@ -86,5 +86,3 @@ VALUES
   ('b0bd8bab-e4c5-4f3a-99d8-97f5c99636d3', 'client'),
   ('dbbec204-7495-40d8-b657-66a4e20f6506', 'admin')
 ON CONFLICT (user_id) DO NOTHING;
-SELECT auth.uid(); -- What is the current user's ID?
-SELECT * FROM user_profiles WHERE user_id = auth.uid(); -- Can you read your own profile?
