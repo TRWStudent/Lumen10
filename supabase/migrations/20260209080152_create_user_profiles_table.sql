@@ -32,25 +32,34 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 -- Enable RLS
 ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
 
--- Policy: Users can read their own profile
-REATE POLICY "Users can read own profile"
-  ON user_profiles
-  FOR SELECT
-  TO authenticated
-  USING (auth.uid() = user_id);
+-- Drop all existing policies
+DROP POLICY IF EXISTS "Users can read profiles" ON user_profiles;
+DROP POLICY IF EXISTS "Users can read own profile" ON user_profiles;
+DROP POLICY IF EXISTS "Admins can read all profiles" ON user_profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON user_profiles;
+DROP POLICY IF EXISTS "Admins can update all profiles" ON user_profiles;
 
--- Policy: Admins can read all profiles
-CREATE POLICY "Admins can read all profiles"
+-- Create a security definer function to check if user is admin (bypasses RLS)
+CREATE OR REPLACE FUNCTION is_admin()
+RETURNS boolean
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM user_profiles
+    WHERE user_id = auth.uid()
+    AND role = 'admin'
+  );
+END;
+$$;
+
+-- Policy: Users can read their own profile OR if they're admin
+CREATE POLICY "Users can read profiles"
   ON user_profiles
   FOR SELECT
   TO authenticated
-  USING (
-    EXISTS (C
-      SELECT 1 FROM user_profiles
-      WHERE user_id = auth.uid()
-      AND role = 'admin'
-    )
-  );
+  USING (auth.uid() = user_id OR is_admin());
 
 -- Policy: Users can update their own profile (but not role)
 CREATE POLICY "Users can update own profile"
@@ -58,31 +67,18 @@ CREATE POLICY "Users can update own profile"
   FOR UPDATE
   TO authenticated
   USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id AND role = (SELECT role FROM user_profiles WHERE user_id = auth.uid()));
+  WITH CHECK (
+    auth.uid() = user_id 
+    AND role = (
+      SELECT role FROM user_profiles 
+      WHERE user_id = auth.uid()
+    )
+  );
 
 -- Policy: Admins can update any profile
 CREATE POLICY "Admins can update all profiles"
   ON user_profiles
   FOR UPDATE
   TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM user_profiles
-      WHERE user_id = auth.uid()
-      AND role = 'admin'
-    )
-  )
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM user_profiles
-      WHERE user_id = auth.uid()
-      AND role = 'admin'
-    )
-  );
-
--- Insert demo user profiles
-INSERT INTO user_profiles (user_id, role)
-VALUES
-  ('b0bd8bab-e4c5-4f3a-99d8-97f5c99636d3', 'client'),
-  ('dbbec204-7495-40d8-b657-66a4e20f6506', 'admin')
-ON CONFLICT (user_id) DO NOTHING;
+  USING (is_admin())
+  WITH CHECK (is_admin());
