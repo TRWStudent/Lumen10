@@ -160,8 +160,8 @@ signupForm.addEventListener('submit', async (e) => {
   const { data: { session } } = await supabase.auth.getSession();
 
   if (session) {
-    console.log('User is already logged in:', session.user);
-    showSuccess('You are already signed in!');
+    console.log('Logging out existing user');
+    await supabase.auth.signOut();
   }
 })();
 
