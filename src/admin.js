@@ -48,10 +48,46 @@ async function checkAdminAccess() {
 
     contentDiv.style.display = 'none';
     adminDashboard.style.display = 'block';
+
+    await loadClientUsers();
   } catch (error) {
     console.error('Access check error:', error);
     showError('An error occurred. Redirecting to login...');
     setTimeout(redirectToLogin, 2000);
+  }
+}
+
+async function loadClientUsers() {
+  const clientsList = document.getElementById('clients-list');
+
+  try {
+    const { data: clients, error } = await supabase
+      .from('user_profiles')
+      .select('email, role, user_id')
+      .eq('role', 'client')
+      .order('email');
+
+    if (error) {
+      console.error('Error loading clients:', error);
+      clientsList.innerHTML = '<div class="no-clients">Error loading client users</div>';
+      return;
+    }
+
+    if (!clients || clients.length === 0) {
+      clientsList.innerHTML = '<div class="no-clients">No client users found</div>';
+      return;
+    }
+
+    clientsList.className = 'clients-list';
+    clientsList.innerHTML = clients.map(client => `
+      <div class="client-item">
+        <div class="client-email">${client.email}</div>
+        <div class="client-badge">CLIENT</div>
+      </div>
+    `).join('');
+  } catch (error) {
+    console.error('Error loading clients:', error);
+    clientsList.innerHTML = '<div class="no-clients">Error loading client users</div>';
   }
 }
 

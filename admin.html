@@ -66,6 +66,46 @@
     .logout-btn:hover {
       background: #c53030;
     }
+
+    .clients-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .client-item {
+      background: #f7fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .client-email {
+      font-size: 16px;
+      color: #2d3748;
+      font-weight: 500;
+    }
+
+    .client-badge {
+      background: #3182ce;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .no-clients {
+      color: #718096;
+      font-size: 16px;
+      padding: 24px;
+      background: #f7fafc;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -73,6 +113,10 @@
     <div id="content" class="loading">Loading...</div>
     <div id="admin-dashboard" style="display: none;">
       <h1>Admin Dashboard Loaded</h1>
+      <div id="clients-section" style="margin-top: 32px;">
+        <h2 style="font-size: 24px; color: #2d3748; margin-bottom: 16px;">Client Users</h2>
+        <div id="clients-list"></div>
+      </div>
       <button id="logout-btn" class="logout-btn">Sign Out</button>
     </div>
   </div>
