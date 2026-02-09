@@ -68,6 +68,29 @@ loginForm.addEventListener('submit', async (e) => {
     showSuccess('Successfully signed in!');
 
     console.log('User signed in:', data.user);
+
+    // Fetch user role from user_profiles table
+    const { data: profileData, error: profileError } = await supabase
+      .from('user_profiles')
+      .select('role')
+      .eq('user_id', data.user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      console.error('Error fetching user profile:', profileError);
+      showError('Failed to load user profile');
+      return;
+    }
+
+    // Redirect based on role
+    if (profileData && profileData.role === 'admin') {
+      window.location.href = '/admin';
+    } else if (profileData && profileData.role === 'client') {
+      window.location.href = '/client';
+    } else {
+      // Default redirect if no role found
+      window.location.href = '/';
+    }
   } catch (error) {
     console.error('Login error:', error);
 
