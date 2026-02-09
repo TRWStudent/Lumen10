@@ -2,11 +2,29 @@ import { supabase } from './supabase.js';
 
 const contentDiv = document.getElementById('content');
 const errorMessageDiv = document.getElementById('error-message');
+const successMessageDiv = document.getElementById('success-message');
+const dashboardDiv = document.getElementById('dashboard');
 const logoutBtn = document.getElementById('logout-btn');
+const uploadForm = document.getElementById('upload-form');
+const uploadBtn = document.getElementById('upload-btn');
+const documentTypeSelect = document.getElementById('document-type');
+const documentFileInput = document.getElementById('document-file');
 
 function showError(message) {
   errorMessageDiv.textContent = message;
   errorMessageDiv.classList.add('show');
+  successMessageDiv.classList.remove('show');
+}
+
+function showSuccess(message) {
+  successMessageDiv.textContent = message;
+  successMessageDiv.classList.add('show');
+  errorMessageDiv.classList.remove('show');
+}
+
+function hideMessages() {
+  errorMessageDiv.classList.remove('show');
+  successMessageDiv.classList.remove('show');
 }
 
 function redirectToLogin() {
@@ -41,14 +59,84 @@ async function checkAccess() {
       return;
     }
 
-    contentDiv.innerHTML = '<h1>Client Dashboard Loaded</h1>';
-    logoutBtn.style.display = 'inline-block';
+    contentDiv.style.display = 'none';
+    dashboardDiv.style.display = 'block';
   } catch (error) {
     console.error('Access check error:', error);
     showError('An error occurred. Redirecting to login...');
     setTimeout(redirectToLogin, 2000);
   }
 }
+
+async function handleUpload(event) {
+  event.preventDefault();
+
+  hideMessages();
+  uploadBtn.disabled = true;
+  uploadBtn.textContent = 'Uploading...';
+
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      showError('You must be logged in to upload files');
+      redirectToLogin();
+      return;
+    }
+
+    const file = documentFileInput.files[0];
+    const documentType = documentTypeSelect.value;
+
+    if (!file || !documentType) {
+      showError('Please select both a document type and a file');
+      return;
+    }
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+    const filePath = `${session.user.id}/${fileName}`;
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('client-documents')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+      showError(`Upload failed: ${uploadError.message}`);
+      return;
+    }
+
+    const { error: dbError } = await supabase
+      .from('documents')
+      .insert({
+        user_id: session.user.id,
+        document_type: documentType,
+        file_path: filePath,
+        status: 'uploaded',
+        note: null
+      });
+
+    if (dbError) {
+      console.error('Database error:', dbError);
+      showError(`Failed to save document record: ${dbError.message}`);
+
+      await supabase.storage
+        .from('client-documents')
+        .remove([filePath]);
+      return;
+    }
+
+    showSuccess('Document uploaded successfully!');
+    uploadForm.reset();
+  } catch (error) {
+    console.error('Upload error:', error);
+    showError('An unexpected error occurred during upload');
+  } finally {
+    uploadBtn.disabled = false;
+    uploadBtn.textContent = 'Upload Document';
+  }
+}
+
+uploadForm.addEventListener('submit', handleUpload);
 
 logoutBtn.addEventListener('click', async () => {
   logoutBtn.disabled = true;
