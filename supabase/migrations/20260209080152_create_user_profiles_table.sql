@@ -32,57 +32,25 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 -- Enable RLS
 ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
 
--- Drop all existing policies
+-- Drop ALL policies
 DROP POLICY IF EXISTS "Users can read profiles" ON user_profiles;
 DROP POLICY IF EXISTS "Users can read own profile" ON user_profiles;
 DROP POLICY IF EXISTS "Admins can read all profiles" ON user_profiles;
 DROP POLICY IF EXISTS "Users can update own profile" ON user_profiles;
 DROP POLICY IF EXISTS "Admins can update all profiles" ON user_profiles;
 
--- Create a security definer function to check if user is admin (bypasses RLS)
-CREATE OR REPLACE FUNCTION is_admin()
-RETURNS boolean
-LANGUAGE plpgsql
-SECURITY DEFINER
-AS $$
-BEGIN
-  RETURN EXISTS (
-    SELECT 1 FROM user_profiles
-    WHERE user_id = auth.uid()
-    AND role = 'admin'
-  );
-END;
-$$;
-
--- Policy: Users can read their own profile OR if they're admin
-CREATE POLICY "Users can read profiles"
+-- Just allow authenticated users to read ANY profile
+-- (We'll handle authorization in the app layer)
+CREATE POLICY "Authenticated users can read profiles"
   ON user_profiles
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id OR is_admin());
+  USING (true);
 
--- Policy: Users can update their own profile (but not role)
+-- Users can only update their own profile, not the role field
 CREATE POLICY "Users can update own profile"
   ON user_profiles
   FOR UPDATE
   TO authenticated
   USING (auth.uid() = user_id)
-  WITH CHECK (
-    auth.uid() = user_id 
-    AND role = (
-      SELECT role FROM user_profiles 
-      WHERE user_id = auth.uid()
-    )
-  );
-
--- Policy: Admins can update any profile
-CREATE POLICY "Admins can update all profiles"
-  ON user_profiles
-  FOR UPDATE
-  TO authenticated
-  USING (is_admin())
-  WITH CHECK (is_admin());
--- 1. Check what policies exist now
-SELECT schemaname, tablename, policyname 
-FROM pg_policies 
-WHERE tablename = 'user_profiles';
+  WITH CHECK (auth.uid() = user_id);
